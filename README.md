@@ -1,2 +1,2 @@
 # CryptoDisplay
-An HTML file with JavaScript to display information about different cryptocurrencies
+A web-app to track the prices of cryptocurrencies
