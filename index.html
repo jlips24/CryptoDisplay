@@ -1,0 +1,105 @@
+<!DOCTYPE htma>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- LINK JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- SETUP PAGE -->
+    <script>
+    function setupPage(){
+      getPrices();
+      getBalances();
+      console.log("Reload");
+      window.setInterval(function(){
+        getPrices();
+        getBalances();
+        console.log("Reload");
+      }, 5000);
+    }
+    </script>
+    <!-- GET ALL PRICES -->
+    <script>
+    function getPrices(){
+      getPrice("bitcoin");
+      getPrice("ethereum");
+      getPrice("nano");
+    }
+    </script>
+    <script>
+    function getPrice(name){
+      var url = "https://api.coinmarketcap.com/v1/ticker/" + name + "/";
+      $.getJSON(url, function(data) {
+        var price = data[0].price_usd;
+        document.getElementById(name + "_price").innerHTML = "$"+price;
+      });
+    }
+    </script>
+    <!-- GET BALANCES -->
+    <script>
+    function getBalances(){
+      getBTCBalance("3CAYQKRPsH3CaTVvLQRwF4dLq1MLUyv2L7");
+      getETHBalance("0xAb373E8B9Ace4B6720f042a47f13185f57532171");
+    }
+    </script>
+    <!-- GET BITCOIN BALLANCE -->
+    <script>
+    function getBTCBalance(address){
+      var url = "https://bitaps.com/api/address/"+address;
+      $.getJSON(url, function(data) {
+        var balance = data.confirmed_balance / 100000000;
+        document.getElementById("bitcoin_holdings").innerHTML = balance;
+      });
+    }
+    </script>
+    <!-- GET ETHEREUM BALANCE -->
+    <script>
+    function getETHBalance(address){
+      var url = "https://api.ethplorer.io/getAddressInfo/"+address+"?apiKey=freekey"
+      $.getJSON(url, function(data) {
+        var balance = data.ETH.balance;
+        document.getElementById("ethereum_holdings").innerHTML = balance;
+      });
+    }
+    </script>
+
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td></td>
+        <td><img src="images/bitcoin.png" class="coinlogo"></td>
+        <td><img src="images/ethereum.png" class="coinlogo"></td>
+        <td><img src="images/nano.png" class="coinlogo"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="axis">Bitcoin</td>
+        <td class="axis">Ethereum</td>
+        <td class="axis">Nano</td>
+      </tr>
+      <tr>
+        <td class="axis">Price (USD)</td>
+        <td id="bitcoin_price"></td>
+        <td id="ethereum_price"></td>
+        <td id="nano_price"></td>
+      </tr>
+      <tr>
+        <td class="axis">Holdings</td>
+        <td id="bitcoin_holdings"></td>
+        <td id="ethereum_holdings"></td>
+        <td id="nano_holdings"></td>
+      </tr>
+      <tr>
+        <td class="axis">USD</td>
+        <td id="bitcoin_usd"></td>
+        <td id="ethereum_usd"></td>
+        <td id="nano_usd"></td>
+      </tr>
+    </table>
+
+    <script>
+    setupPage()
+    </script>
+
+  </body>
+</html>

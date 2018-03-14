@@ -1,0 +1,18 @@
+html {
+  font-family: Verdana;
+  background-color: black;
+  color: white;
+}
+td {
+  padding-right: 30px;
+  padding-bottom: 15px;
+  font-size: 30px;
+  text-align: center;
+}
+td.axis {
+  color: grey;
+}
+img.coinlogo {
+  width: 75px;
+  height: 75px;
+}
